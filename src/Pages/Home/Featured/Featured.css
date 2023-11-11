@@ -1,0 +1,5 @@
+.featured-item {
+  background-image: url("../../../assets/home/featured.jpg");
+  background-color: rgba(0, 0, 0, 0.6);
+  background-blend-mode: overlay;
+}
