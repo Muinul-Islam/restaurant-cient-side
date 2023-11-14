@@ -12,18 +12,18 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  const { createUser, updateUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log(data);
-    createUser(data?.email, data?.password)
+    createUser(data.email, data.password)
       .then((res) => {
         const loggedUser = res.user;
         console.log(loggedUser);
 
-        updateUser(data.name, data.photoURL)
+        updateUserProfile(data.name, data.photoURL)
           .then(() => {
             console.log("User Updated");
             reset();
