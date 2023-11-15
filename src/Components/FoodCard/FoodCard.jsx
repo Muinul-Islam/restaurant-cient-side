@@ -1,7 +1,10 @@
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+
+import useAxiosSecure from "../../Hooks/useAxiosSecure.jsx";
+import useCart from "../../Hooks/useCart.jsx";
 
 const FoodCard = ({ item }) => {
   const { name, image, recipe, price, _id } = item;
@@ -9,11 +12,11 @@ const FoodCard = ({ item }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
+  const [, refetch] = useCart();
 
-  const handleAddToCart = (food) => {
-    console.log(food, user.email);
+  const handleAddToCart = () => {
     if (user && user.email) {
-      console.log(user.email, food);
       const cartItem = {
         menuId: _id,
         email: user.email,
@@ -22,21 +25,17 @@ const FoodCard = ({ item }) => {
         price,
       };
 
-      axios
-        .post("http://localhost:5000/carts", cartItem)
-        .then((res) => {
-          console.log(res.data);
-          if (res.data.isInsertedId) {
-            Swal.fire({
-              title: "Good job!",
-              text: `${name} Added To The Cart`,
-              icon: "success",
-            });
-          }
-        })
-        .catch((error) => {
-          console.error("Axios error:", error);
-        });
+      axiosSecure.post("/carts", cartItem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Good job!",
+            text: `${name} Added To The Cart`,
+            icon: "success",
+          });
+          refetch();
+        }
+      });
     } else {
       Swal.fire({
         title: "You Are Not Logged In Yet",
@@ -71,7 +70,7 @@ const FoodCard = ({ item }) => {
           <p>{recipe}</p>
           <div className="card-actions justify-end">
             <button
-              onClick={() => handleAddToCart(item)}
+              onClick={handleAddToCart}
               className="btn btn-outline border-0 border-b-2 border-yellow-600 text-yellow-600"
             >
               Add To Cart

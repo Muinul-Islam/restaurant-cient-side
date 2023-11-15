@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../../Providers/AuthProvider";
 import { BsCartCheckFill } from "react-icons/bs";
+import useCart from "../../../Hooks/useCart";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
 
   const handleLogOut = () => {
     logOut()
@@ -29,10 +31,10 @@ const NavBar = () => {
         <NavLink to="/secret">Secret</NavLink>
       </li>
       <li>
-        <NavLink to="/">
+        <NavLink to="/dashboard/cart">
           <button className="text-2xl flex justify-center items-center">
             <BsCartCheckFill></BsCartCheckFill>
-            <div className="badge badge-secondary ml-2">+0</div>
+            <div className="badge badge-secondary ml-2">+{cart.length}</div>
           </button>
         </NavLink>
       </li>
