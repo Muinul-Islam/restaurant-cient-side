@@ -74,7 +74,14 @@ const NavBar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navLink}</ul>
         </div>
+
         <div className="navbar-end">
+          <img
+            className="w-12 h-12 rounded-full mr-3"
+            src={user.photoURL}
+            alt=""
+          />
+          <p>{user.displayName}</p>
           {user ? (
             <>
               {/* <span>{user?.displayName}</span> */}
