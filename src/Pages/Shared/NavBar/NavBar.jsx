@@ -78,10 +78,10 @@ const NavBar = () => {
         <div className="navbar-end">
           <img
             className="w-12 h-12 rounded-full mr-3"
-            src={user.photoURL}
+            src={user?.photoURL}
             alt=""
           />
-          <p>{user.displayName}</p>
+          <p>{user?.displayName}</p>
           {user ? (
             <>
               {/* <span>{user?.displayName}</span> */}

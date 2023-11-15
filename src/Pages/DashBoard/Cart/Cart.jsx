@@ -45,7 +45,7 @@ const Cart = () => {
         <table className="table w-full">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="text-lg">
               <th>#</th>
               <th>Image</th>
               <th>Name</th>
